@@ -6,7 +6,7 @@ import cookielib
 import json
 from bs4 import BeautifulSoup
 import subprocess as sp
-import pynotify
+import time
 
 def get_soup(url,header):
     return BeautifulSoup(urllib2.urlopen(urllib2.Request(url,headers=header)),'html.parser')
@@ -32,8 +32,11 @@ def function():
 				val += j
 		val += '\n'
 		all_vals.append(val)
-	cmd = 'notify-send ' + '"Cricket Score" ' +'"' + '\n'.join(all_vals) + '"' + '| at now + 2 minutes'
+	cmd = 'notify-send ' + '"Cricket Score" ' +'"' + '\n'.join(all_vals) + '"'
 	sp.call(cmd, shell = True)
 
 if __name__ == "__main__":
-	function()
+	cnt = 0
+	while(True):
+		function()
+		time.sleep(60)
